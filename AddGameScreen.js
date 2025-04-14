@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Image, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { ref, push, onValue } from 'firebase/database';
+import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
 import { db } from './firebase';
 
 export default function AddGameScreen({ navigation }) {
   const [newGame, setNewGame] = useState('');
   const [description, setDescription] = useState('');
-  const [platforms, setPlatforms] = useState([]); 
-  const [selectedPlatform, setSelectedPlatform] = useState(''); 
+  const [platforms, setPlatforms] = useState([]);
+  const [selectedPlatform, setSelectedPlatform] = useState('');
+  const [imageUri, setImageUri] = useState('');
 
   useEffect(() => {
     const platformsRef = ref(db, 'platforms');
@@ -17,6 +20,41 @@ export default function AddGameScreen({ navigation }) {
       setPlatforms(list);
     });
   }, []);
+
+  const pickImage = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!permissionResult.granted) {
+      alert('Permission to access media library is required!');
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImageUri(result.assets[0].uri);
+    }
+  };
+
+  const takePhoto = async () => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+    if (!permissionResult.granted) {
+      alert('Permission to access camera is required!');
+      return;
+    }
+
+    const result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImageUri(result.assets[0].uri);
+    }
+  };
 
   const addGame = async () => {
     if (!newGame.trim()) {
@@ -29,15 +67,19 @@ export default function AddGameScreen({ navigation }) {
     }
 
     try {
-      await push(ref(db, 'games'), {
+      const gameData = {
         name: newGame.trim(),
         description: description.trim(),
-        platform: selectedPlatform, 
-        imageUrl: '',
-      });
+        platform: selectedPlatform,
+        imageUrl: imageUri || '',
+      };
+
+      await push(ref(db, 'games'), gameData);
+
       setNewGame('');
       setDescription('');
       setSelectedPlatform('');
+      setImageUri('');
       navigation.goBack();
     } catch (error) {
       console.error('Error saving game:', error);
@@ -50,31 +92,42 @@ export default function AddGameScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Add a New Game</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Game name"
-        value={newGame}
-        onChangeText={setNewGame}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Game description"
-        value={description}
-        onChangeText={setDescription}
-        multiline
-      />
-      <Button
-        title={selectedPlatform ? `Platform: ${selectedPlatform}` : 'Add platform to game'}
-        onPress={() =>
-          navigation.navigate('PlatformSelection', {
-            onSelect: handlePlatformSelection,
-          })
-        }
-      />
-      <Button title="Save Game" onPress={addGame} />
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Add a New Game</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Game name"
+          value={newGame}
+          onChangeText={setNewGame}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Game description"
+          value={description}
+          onChangeText={setDescription}
+          multiline
+        />
+        <Button
+          title={selectedPlatform ? `Platform: ${selectedPlatform}` : 'Add platform to game'}
+          onPress={() =>
+            navigation.navigate('PlatformSelection', {
+              onSelect: handlePlatformSelection,
+            })
+          }
+        />
+        <View style={styles.imageContainer}>
+          {imageUri ? (
+            <Image source={{ uri: imageUri }} style={styles.image} />
+          ) : (
+            <Text style={styles.imagePlaceholder}>No image selected</Text>
+          )}
+          <Button title="Pick an Image" onPress={pickImage} />
+          <Button title="Take a Photo" onPress={takePhoto} />
+        </View>
+        <Button title="Save Game" onPress={addGame} />
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -98,14 +151,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#222',
     color: '#fff',
   },
-  picker: {
-    height: 50,
-    color: '#fff',
-    backgroundColor: '#333', 
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 4,
+  imageContainer: {
     marginBottom: 10,
-    zIndex: 10,
+    alignItems: 'center',
+  },
+  image: {
+    width: 200,
+    height: 200,
+    marginBottom: 10,
+  },
+  imagePlaceholder: {
+    color: '#aaa',
+    marginBottom: 10,
   },
 });
