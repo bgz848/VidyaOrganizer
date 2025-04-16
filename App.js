@@ -3,6 +3,7 @@ import { FlatList, View, Text, Button, Image, StyleSheet, Alert, TouchableWithou
 import { ref, onValue, remove } from 'firebase/database';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Swipeable } from 'react-native-gesture-handler'; 
 import AddGameScreen from './AddGameScreen'; 
 import EditGameScreen from './EditGameScreen'; 
 import AddPlatformScreen from './AddPlatformScreen'; 
@@ -46,6 +47,19 @@ function HomeScreen({ navigation }) {
     setSelectedGameId(selectedGameId === id ? null : id); 
   };
 
+  const renderRightActions = (item) => (
+    <View style={styles.buttonGroup}>
+      <Button
+        title="Edit"
+        onPress={() => navigation.navigate('EditGame', { game: item })}
+      />
+      <Button
+        title="Remove"
+        onPress={() => deleteGame(item.id)}
+      />
+    </View>
+  );
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -63,44 +77,33 @@ function HomeScreen({ navigation }) {
           data={games}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <View
-              style={[
-                styles.gameItem,
-                item.id === selectedGameId && styles.selectedGameItem, 
-              ]}
-            >
-              <View style={styles.gameInfo}>
-                <Text
-                  style={styles.gameText}
-                  onPress={() => toggleDescription(item.id)}
+            <Swipeable renderRightActions={() => renderRightActions(item)}>
+              <TouchableWithoutFeedback onPress={() => toggleDescription(item.id)}>
+                <View
+                  style={[
+                    styles.gameItem,
+                    item.id === selectedGameId && styles.selectedGameItem, 
+                  ]}
                 >
-                  {item.name}
-                </Text>
-                {selectedGameId === item.id && (
-                  <>
-                    {item.description && (
-                      <Text style={styles.description}>{item.description}</Text>
+                  <View style={styles.gameInfo}>
+                    <Text style={styles.gameText}>{item.name}</Text>
+                    {selectedGameId === item.id && (
+                      <>
+                        {item.description && (
+                          <Text style={styles.description}>{item.description}</Text>
+                        )}
+                        {item.platform && (
+                          <Text style={styles.platform}>Platform: {item.platform}</Text>
+                        )}
+                      </>
                     )}
-                    {item.platform && (
-                      <Text style={styles.platform}>Platform: {item.platform}</Text>
+                    {item.imageUrl && (
+                      <Image source={{ uri: item.imageUrl }} style={styles.thumb} />
                     )}
-                  </>
-                )}
-                {item.imageUrl && (
-                  <Image source={{ uri: item.imageUrl }} style={styles.thumb} />
-                )}
-              </View>
-              <View style={styles.buttonGroup}>
-                <Button
-                  title="Edit"
-                  onPress={() => navigation.navigate('EditGame', { game: item })}
-                />
-                <Button
-                  title="Remove"
-                  onPress={() => deleteGame(item.id)}
-                />
-              </View>
-            </View>
+                  </View>
+                </View>
+              </TouchableWithoutFeedback>
+            </Swipeable>
           )}
         />
       </View>
@@ -143,6 +146,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 5,
     borderRadius: 8,
+    paddingHorizontal: 15, // Add horizontal padding to prevent movement
   },
   gameInfo: {
     flex: 1,
@@ -167,11 +171,15 @@ const styles = StyleSheet.create({
   selectedGameItem: {
     borderColor: '#00f',
     borderWidth: 2,
+    paddingHorizontal: 13, // Adjust padding to account for the border width
   },
   buttonGroup: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     gap: 10, 
+    backgroundColor: '#444',
+    padding: 10,
+    borderRadius: 8,
   },
   buttonRow: {
     flexDirection: 'row',

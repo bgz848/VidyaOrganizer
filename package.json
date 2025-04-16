@@ -19,7 +19,9 @@
     "firebase": "^11.6.0",
     "react": "19.0.0",
     "react-native": "0.79.2",
-    "vidya_organizer": "file:"
+    "vidya_organizer": "file:",
+    "react-native-gesture-handler": "~2.24.0",
+    "react-native-reanimated": "~3.17.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
