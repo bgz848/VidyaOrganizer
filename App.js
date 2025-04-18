@@ -92,21 +92,19 @@ function HomeScreen({ navigation }) {
                     item.id === selectedGameId && styles.selectedGameItem, 
                   ]}
                 >
-                  <View style={styles.gameInfo}>
-                    <Text style={styles.gameText}>{item.name}</Text>
-                    {selectedGameId === item.id && (
-                      <>
-                        {item.description && (
-                          <Text style={styles.description}>{item.description}</Text>
-                        )}
-                        {item.platform && (
-                          <Text style={styles.platform}>{t('platforms')}: {item.platform}</Text>
-                        )}
-                      </>
-                    )}
+                  <View style={styles.gameInfoRow}> 
                     {item.imageUrl && (
                       <Image source={{ uri: item.imageUrl }} style={styles.thumb} />
                     )}
+                    <View style={styles.gameDetails}> 
+                      <Text style={styles.gameText}>{item.name}</Text>
+                      {item.platform && (
+                        <Text style={styles.platform}>{t('platforms')}: {item.platform}</Text>
+                      )}
+                      {selectedGameId === item.id && item.description && (
+                        <Text style={styles.description}>{item.description}</Text>
+                      )}
+                    </View>
                   </View>
                 </View>
               </TouchableWithoutFeedback>
@@ -147,14 +145,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   gameItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: 'column', // Stack items vertically
+    justifyContent: 'flex-start', // Align items at the top
+    alignItems: 'center', // Center items horizontally
     backgroundColor: '#2c2c2c',
     padding: 10,
     marginVertical: 5,
     borderRadius: 8,
-    paddingHorizontal: 15, // Add horizontal padding to prevent movement
+    paddingHorizontal: 15,
+    position: 'relative', // Allow precise positioning
   },
   gameInfo: {
     flex: 1,
@@ -169,7 +168,8 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 4,
-    marginTop: 5,
+    marginTop: 10, // Add specific spacing from the top
+    alignSelf: 'center', // Center the image horizontally
   },
   description: {
     color: '#aaa',
@@ -198,6 +198,14 @@ const styles = StyleSheet.create({
     color: '#aaa',
     fontSize: 14,
     marginTop: 5,
+  },
+  gameInfoRow: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+  },
+  gameDetails: {
+    flex: 1, 
+    marginLeft: 10, 
   },
 });
 
