@@ -4,8 +4,10 @@ import { ref, push, onValue } from 'firebase/database';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { db } from './firebase';
+import { useTranslation } from 'react-i18next';
 
 export default function AddGameScreen({ navigation }) {
+  const { t } = useTranslation();
   const [newGame, setNewGame] = useState('');
   const [description, setDescription] = useState('');
   const [platforms, setPlatforms] = useState([]);
@@ -58,11 +60,11 @@ export default function AddGameScreen({ navigation }) {
 
   const addGame = async () => {
     if (!newGame.trim()) {
-      alert('Please enter a game name.');
+      alert(t('enterGameName')); // Use translation
       return;
     }
     if (!selectedPlatform) {
-      alert('Please select a platform.');
+      alert(t('selectPlatform')); // Use translation
       return;
     }
 
@@ -83,7 +85,7 @@ export default function AddGameScreen({ navigation }) {
       navigation.goBack();
     } catch (error) {
       console.error('Error saving game:', error);
-      alert('Failed to save game. Please try again.');
+      alert(t('failedToSave')); // Use translation
     }
   };
 
@@ -94,22 +96,22 @@ export default function AddGameScreen({ navigation }) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-        <Text style={styles.title}>Add a New Game</Text>
+        <Text style={styles.title}>{t('addGameTitle')}</Text>
         <TextInput
           style={styles.input}
-          placeholder="Game name"
+          placeholder={t('gameNamePlaceholder')} // Use translation
           value={newGame}
           onChangeText={setNewGame}
         />
         <TextInput
           style={styles.input}
-          placeholder="Game description"
+          placeholder={t('gameDescriptionPlaceholder')} // Use translation
           value={description}
           onChangeText={setDescription}
           multiline
         />
         <Button
-          title={selectedPlatform ? `Platform: ${selectedPlatform}` : 'Add platform to game'}
+          title={selectedPlatform ? `${t('addPlatform')}: ${selectedPlatform}` : t('addPlatform')}
           onPress={() =>
             navigation.navigate('PlatformSelection', {
               onSelect: handlePlatformSelection,
@@ -120,12 +122,12 @@ export default function AddGameScreen({ navigation }) {
           {imageUri ? (
             <Image source={{ uri: imageUri }} style={styles.image} />
           ) : (
-            <Text style={styles.imagePlaceholder}>No image selected</Text>
+            <Text style={styles.imagePlaceholder}>{t('noImageSelected')}</Text>
           )}
-          <Button title="Pick an Image" onPress={pickImage} />
-          <Button title="Take a Photo" onPress={takePhoto} />
+          <Button title={t('pickImage')} onPress={pickImage} />
+          <Button title={t('takePhoto')} onPress={takePhoto} />
         </View>
-        <Button title="Save Game" onPress={addGame} />
+        <Button title={t('saveGame')} onPress={addGame} />
       </View>
     </TouchableWithoutFeedback>
   );

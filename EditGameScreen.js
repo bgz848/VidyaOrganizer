@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { ref, update, onValue } from 'firebase/database';
 import { db } from './firebase';
+import { useTranslation } from 'react-i18next';
 
 export default function EditGameScreen({ route, navigation }) {
   const { game } = route.params;
+  const { t } = useTranslation(); 
   const [name, setName] = useState(game.name);
   const [description, setDescription] = useState(game.description || '');
   const [selectedPlatform, setSelectedPlatform] = useState(game.platform || '');
@@ -15,11 +17,11 @@ export default function EditGameScreen({ route, navigation }) {
 
   const saveChanges = async () => {
     if (!name.trim()) {
-      alert('Please enter a game name.');
+      alert(t('enterGameName'));
       return;
     }
     if (!selectedPlatform) {
-      alert('Please select a platform.');
+      alert(t('selectPlatform')); 
       return;
     }
 
@@ -33,35 +35,35 @@ export default function EditGameScreen({ route, navigation }) {
       navigation.goBack();
     } catch (error) {
       console.error('Error updating game:', error);
-      alert('Failed to save changes. Please try again.');
+      alert(t('failedToSave')); 
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Edit Game</Text>
+      <Text style={styles.title}>{t('editGame')}</Text>
       <TextInput
         style={styles.input}
-        placeholder="Game name"
+        placeholder={t('gameNamePlaceholder')}
         value={name}
         onChangeText={setName}
       />
       <TextInput
         style={styles.input}
-        placeholder="Game description"
+        placeholder={t('gameDescriptionPlaceholder')} 
         value={description}
         onChangeText={setDescription}
         multiline
       />
       <Button
-        title={selectedPlatform ? `Platform: ${selectedPlatform}` : 'Add platform to game'}
+        title={selectedPlatform ? `${t('addPlatform')}: ${selectedPlatform}` : t('addPlatform')}
         onPress={() =>
           navigation.navigate('PlatformSelection', {
             onSelect: handlePlatformSelection,
           })
         }
       />
-      <Button title="Save Changes" onPress={saveChanges} />
+      <Button title={t('saveChanges')} onPress={saveChanges} />
     </View>
   );
 }

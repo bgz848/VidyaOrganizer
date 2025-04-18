@@ -17,11 +17,16 @@
     "expo-image-picker": "~16.1.4",
     "expo-status-bar": "~2.2.3",
     "firebase": "^11.6.0",
+    "i18next": "^25.0.2",
+    "i18next-browser-languagedetector": "^8.1.0",
+    "i18next-http-backend": "^3.0.2",
     "react": "19.0.0",
+    "react-i18next": "^15.5.1",
     "react-native": "0.79.2",
-    "vidya_organizer": "file:",
     "react-native-gesture-handler": "~2.24.0",
-    "react-native-reanimated": "~3.17.4"
+    "react-native-localize": "^3.4.1",
+    "react-native-reanimated": "~3.17.4",
+    "vidya_organizer": "file:"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

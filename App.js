@@ -9,10 +9,13 @@ import EditGameScreen from './EditGameScreen';
 import AddPlatformScreen from './AddPlatformScreen'; 
 import PlatformSelectionScreen from './PlatformSelectionScreen'; 
 import { db } from './firebase';
+import './i18n'; 
+import { useTranslation } from 'react-i18next';
 
 const Stack = createStackNavigator();
 
 function HomeScreen({ navigation }) {
+  const { t, i18n } = useTranslation(); 
   const [games, setGames] = useState([]);
   const [selectedGameId, setSelectedGameId] = useState(null); 
 
@@ -27,12 +30,12 @@ function HomeScreen({ navigation }) {
 
   const deleteGame = (id) => {
     Alert.alert(
-      'Delete Game',
-      'Are you sure you want to delete this game?',
+      t('deleteGame'),
+      t('deleteConfirmation'),
       [
-        { text: 'Cancel', style: 'cancel' },
+        { text: t('cancel'), style: 'cancel' },
         {
-          text: 'Delete',
+          text: t('delete'),
           style: 'destructive',
           onPress: () => {
             remove(ref(db, `games/${id}`));
@@ -50,11 +53,11 @@ function HomeScreen({ navigation }) {
   const renderRightActions = (item) => (
     <View style={styles.buttonGroup}>
       <Button
-        title="Edit"
+        title={t('edit')}
         onPress={() => navigation.navigate('EditGame', { game: item })}
       />
       <Button
-        title="Remove"
+        title={t('delete')}
         onPress={() => deleteGame(item.id)}
       />
     </View>
@@ -68,10 +71,14 @@ function HomeScreen({ navigation }) {
       }}
     >
       <View style={styles.container}>
-        <Text style={styles.title}>My Game Collection</Text>
+        <Text style={styles.title}>{t('title')}</Text>
         <View style={styles.buttonRow}>
-          <Button title="Add Game" onPress={() => navigation.navigate('AddGame')} />
-          <Button title="Add Platform" onPress={() => navigation.navigate('AddPlatform')} /> {/* New button */}
+          <Button title={t('addGame')} onPress={() => navigation.navigate('AddGame')} />
+          <Button title={t('addPlatform')} onPress={() => navigation.navigate('AddPlatform')} />
+        </View>
+        <View style={styles.buttonRow}>
+          <Button title={t('switchLanguageToFinnish')} onPress={() => i18n.changeLanguage('fi')} />
+          <Button title={t('switchLanguageToEnglish')} onPress={() => i18n.changeLanguage('en')} />
         </View>
         <FlatList
           data={games}
@@ -93,7 +100,7 @@ function HomeScreen({ navigation }) {
                           <Text style={styles.description}>{item.description}</Text>
                         )}
                         {item.platform && (
-                          <Text style={styles.platform}>Platform: {item.platform}</Text>
+                          <Text style={styles.platform}>{t('platforms')}: {item.platform}</Text>
                         )}
                       </>
                     )}
@@ -108,6 +115,7 @@ function HomeScreen({ navigation }) {
         />
       </View>
     </TouchableWithoutFeedback>
+    
   );
 }
 

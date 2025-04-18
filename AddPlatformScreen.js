@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { ref, push } from 'firebase/database';
 import { db } from './firebase';
+import { useTranslation } from 'react-i18next';
 
 export default function AddPlatformScreen({ navigation }) {
   const [platformName, setPlatformName] = useState('');
+  const { t } = useTranslation();
 
   const addPlatform = async () => {
     if (!platformName.trim()) {
-      alert('Please enter a platform name.');
+      alert(t('platformNamePlaceholder'));
       return;
     }
 
@@ -18,20 +20,20 @@ export default function AddPlatformScreen({ navigation }) {
       navigation.goBack(); 
     } catch (error) {
       console.error('Error saving platform:', error);
-      alert('Failed to save platform. Please try again.');
+      alert(t('failedToSave')); 
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Add a New Platform</Text>
+      <Text style={styles.title}>{t('addPlatformTitle')}</Text>
       <TextInput
         style={styles.input}
-        placeholder="Platform name"
+        placeholder={t('platformNamePlaceholder')} 
         value={platformName}
         onChangeText={setPlatformName}
       />
-      <Button title="Save Platform" onPress={addPlatform} />
+      <Button title={t('savePlatform')} onPress={addPlatform} />
     </View>
   );
 }
