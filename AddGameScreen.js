@@ -124,8 +124,10 @@ export default function AddGameScreen({ navigation }) {
           ) : (
             <Text style={styles.imagePlaceholder}>{t('noImageSelected')}</Text>
           )}
-          <Button title={t('pickImage')} onPress={pickImage} />
-          <Button title={t('takePhoto')} onPress={takePhoto} />
+          <View style={styles.buttonRow}>
+                      <Button title={t('pickImage')} onPress={pickImage} />
+                      <Button title={t('takePhoto')} onPress={takePhoto} />
+          </View>
         </View>
         <Button title={t('saveGame')} onPress={addGame} />
       </View>
@@ -165,5 +167,9 @@ const styles = StyleSheet.create({
   imagePlaceholder: {
     color: '#aaa',
     marginBottom: 10,
+  },
+  buttonRow: {
+    flexDirection: 'row', 
+    justifyContent: 'space-between',
   },
 });
