@@ -24,5 +24,6 @@
     "failedToSave": "Muutosten tallennus epäonnistui. Yritä uudelleen.",
     "platforms": "Alustat",
     "switchLanguageToEnglish": "Vaihda Englanniksi",
-    "switchLanguageToFinnish": "Vaihda Suomeksi"
+    "switchLanguageToFinnish": "Vaihda Suomeksi",
+    "searchGames": "Etsi Nimellä"
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, View, Text, Button, Image, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { FlatList, View, Text, Button, Image, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard, TextInput } from 'react-native';
 import { ref, onValue, remove } from 'firebase/database';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -18,6 +18,7 @@ function HomeScreen({ navigation }) {
   const { t, i18n } = useTranslation(); 
   const [games, setGames] = useState([]);
   const [selectedGameId, setSelectedGameId] = useState(null); 
+  const [searchQuery, setSearchQuery] = useState(''); 
 
   useEffect(() => {
     const gamesRef = ref(db, 'games');
@@ -63,6 +64,10 @@ function HomeScreen({ navigation }) {
     </View>
   );
 
+  const filteredGames = games.filter(game =>
+    game.name.toLowerCase().includes(searchQuery.toLowerCase()) 
+  );
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -80,8 +85,15 @@ function HomeScreen({ navigation }) {
           <Button title={t('switchLanguageToFinnish')} onPress={() => i18n.changeLanguage('fi')} />
           <Button title={t('switchLanguageToEnglish')} onPress={() => i18n.changeLanguage('en')} />
         </View>
+        <TextInput
+          style={styles.searchBar}
+          placeholder={t('searchGames')}
+          placeholderTextColor="#aaa"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
         <FlatList
-          data={games}
+          data={filteredGames} // Use filteredGames instead of games
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
             <Swipeable renderRightActions={() => renderRightActions(item)}>
@@ -101,11 +113,11 @@ function HomeScreen({ navigation }) {
                       {item.platform && (
                         <Text style={styles.platform}>{t('platforms')}: {item.platform}</Text>
                       )}
-                      {selectedGameId === item.id && item.description && (
-                        <Text style={styles.description}>{item.description}</Text>
-                      )}
                     </View>
                   </View>
+                  {selectedGameId === item.id && item.description && (
+                    <Text style={styles.description}>{item.description}</Text>
+                  )}
                 </View>
               </TouchableWithoutFeedback>
             </Swipeable>
@@ -145,15 +157,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   gameItem: {
-    flexDirection: 'column', // Stack items vertically
-    justifyContent: 'flex-start', // Align items at the top
-    alignItems: 'center', // Center items horizontally
+    flexDirection: 'column',
+    justifyContent: 'flex-start', 
+    alignItems: 'center', 
     backgroundColor: '#2c2c2c',
     padding: 10,
     marginVertical: 5,
     borderRadius: 8,
     paddingHorizontal: 15,
-    position: 'relative', // Allow precise positioning
+    position: 'relative', 
   },
   gameInfo: {
     flex: 1,
@@ -168,8 +180,8 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 4,
-    marginTop: 10, // Add specific spacing from the top
-    alignSelf: 'center', // Center the image horizontally
+    marginTop: 10, 
+    alignSelf: 'top', 
   },
   description: {
     color: '#aaa',
@@ -179,7 +191,7 @@ const styles = StyleSheet.create({
   selectedGameItem: {
     borderColor: '#00f',
     borderWidth: 2,
-    paddingHorizontal: 13, // Adjust padding to account for the border width
+    paddingHorizontal: 13, 
   },
   buttonGroup: {
     flexDirection: 'row',
@@ -206,6 +218,13 @@ const styles = StyleSheet.create({
   gameDetails: {
     flex: 1, 
     marginLeft: 10, 
+  },
+  searchBar: {
+    backgroundColor: '#2c2c2c',
+    color: '#fff',
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 10,
   },
 });
 
