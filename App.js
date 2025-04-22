@@ -11,6 +11,7 @@ import PlatformSelectionScreen from './PlatformSelectionScreen';
 import { db } from './firebase';
 import './i18n'; 
 import { useTranslation } from 'react-i18next';
+import SettingsScreen from './SettingsScreen'; 
 
 const Stack = createStackNavigator();
 
@@ -76,14 +77,16 @@ function HomeScreen({ navigation }) {
       }}
     >
       <View style={styles.container}>
-        <Text style={styles.title}>{t('title')}</Text>
+        <View style={styles.buttonRow}>
+          <Text style={styles.title}>{t('title')}</Text>
+          <Button
+            title="⚙️"
+            onPress={() => navigation.navigate('Settings')}
+          />
+        </View>
         <View style={styles.buttonRow}>
           <Button title={t('addGame')} onPress={() => navigation.navigate('AddGame')} />
           <Button title={t('addPlatform')} onPress={() => navigation.navigate('AddPlatform')} />
-        </View>
-        <View style={styles.buttonRow}>
-          <Button title={t('switchLanguageToFinnish')} onPress={() => i18n.changeLanguage('fi')} />
-          <Button title={t('switchLanguageToEnglish')} onPress={() => i18n.changeLanguage('en')} />
         </View>
         <TextInput
           style={styles.searchBar}
@@ -138,6 +141,7 @@ export default function App() {
         <Stack.Screen name="EditGame" component={EditGameScreen} />
         <Stack.Screen name="AddPlatform" component={AddPlatformScreen} />
         <Stack.Screen name="PlatformSelection" component={PlatformSelectionScreen} />
+        <Stack.Screen name="Settings" component={SettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -146,7 +150,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    marginTop: 50,
+    marginTop: 0,
     backgroundColor: '#1e1e1e',
     flex: 1,
   },

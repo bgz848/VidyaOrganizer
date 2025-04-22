@@ -25,5 +25,9 @@
     "platforms": "Alustat",
     "switchLanguageToEnglish": "Vaihda Englanniksi",
     "switchLanguageToFinnish": "Vaihda Suomeksi",
-    "searchGames": "Etsi Nimellä"
+    "searchGames": "Etsi Nimellä",
+    "Finnish": "Suomi",
+    "English": "Englanti",
+    "confirm": "Vahvista",
+    "language": "Kieli"
 }
