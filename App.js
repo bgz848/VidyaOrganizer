@@ -12,6 +12,7 @@ import { db } from './firebase';
 import './i18n'; 
 import { useTranslation } from 'react-i18next';
 import SettingsScreen from './SettingsScreen'; 
+import { colors } from './Style';
 
 const Stack = createStackNavigator();
 
@@ -57,10 +58,12 @@ function HomeScreen({ navigation }) {
       <Button
         title={t('edit')}
         onPress={() => navigation.navigate('EditGame', { game: item })}
+        color={colors.buttonDefault}
       />
       <Button
         title={t('delete')}
         onPress={() => deleteGame(item.id)}
+        color={colors.buttonDelete} 
       />
     </View>
   );
@@ -85,13 +88,21 @@ function HomeScreen({ navigation }) {
           />
         </View>
         <View style={styles.buttonRow}>
-          <Button title={t('addGame')} onPress={() => navigation.navigate('AddGame')} />
-          <Button title={t('addPlatform')} onPress={() => navigation.navigate('AddPlatform')} />
+          <Button 
+            title={t('addGame')} 
+            onPress={() => navigation.navigate('AddGame')} 
+            color={colors.buttonDefault} 
+          />
+          <Button 
+            title={t('addPlatform')} 
+            onPress={() => navigation.navigate('AddPlatform')} 
+            color={colors.buttonDefault} 
+          />
         </View>
         <TextInput
           style={styles.searchBar}
           placeholder={t('searchGames')}
-          placeholderTextColor="#aaa"
+          placeholderTextColor={colors.secondaryText} 
           value={searchQuery}
           onChangeText={setSearchQuery}
         />
@@ -151,20 +162,20 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     marginTop: 0,
-    backgroundColor: '#1e1e1e',
+    backgroundColor: colors.background,
     flex: 1,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#fff',
+    color: colors.text,
     marginBottom: 10,
   },
   gameItem: {
     flexDirection: 'column',
     justifyContent: 'flex-start', 
     alignItems: 'center', 
-    backgroundColor: '#2c2c2c',
+    backgroundColor: colors.secondaryBackground,
     padding: 10,
     marginVertical: 5,
     borderRadius: 8,
@@ -176,7 +187,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   gameText: {
-    color: '#fff',
+    color: colors.text,
     fontSize: 16,
     marginBottom: 5,
   },
@@ -188,12 +199,12 @@ const styles = StyleSheet.create({
     alignSelf: 'top', 
   },
   description: {
-    color: '#aaa',
+    color: colors.secondaryText,
     fontSize: 14,
     marginTop: 5,
   },
   selectedGameItem: {
-    borderColor: '#00f',
+    borderColor: colors.selectedItem,
     borderWidth: 2,
     paddingHorizontal: 13, 
   },
@@ -201,7 +212,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     gap: 10, 
-    backgroundColor: '#444',
+    backgroundColor: colors.tertiaryBackground,
     padding: 10,
     borderRadius: 8,
   },
@@ -211,7 +222,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   platform: {
-    color: '#aaa',
+    color: colors.secondaryText,
     fontSize: 14,
     marginTop: 5,
   },
@@ -224,8 +235,8 @@ const styles = StyleSheet.create({
     marginLeft: 10, 
   },
   searchBar: {
-    backgroundColor: '#2c2c2c',
-    color: '#fff',
+    backgroundColor: colors.secondaryBackground,
+    color: colors.text,
     padding: 10,
     borderRadius: 8,
     marginBottom: 10,

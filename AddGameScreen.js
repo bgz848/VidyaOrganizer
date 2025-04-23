@@ -5,6 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { db } from './firebase';
 import { useTranslation } from 'react-i18next';
+import colors from './Style';
 
 export default function AddGameScreen({ navigation }) {
   const { t } = useTranslation();
@@ -60,11 +61,11 @@ export default function AddGameScreen({ navigation }) {
 
   const addGame = async () => {
     if (!newGame.trim()) {
-      alert(t('enterGameName')); // Use translation
+      alert(t('enterGameName')); 
       return;
     }
     if (!selectedPlatform) {
-      alert(t('selectPlatform')); // Use translation
+      alert(t('selectPlatform')); 
       return;
     }
 
@@ -85,7 +86,7 @@ export default function AddGameScreen({ navigation }) {
       navigation.goBack();
     } catch (error) {
       console.error('Error saving game:', error);
-      alert(t('failedToSave')); // Use translation
+      alert(t('failedToSave')); 
     }
   };
 
@@ -99,13 +100,13 @@ export default function AddGameScreen({ navigation }) {
         <Text style={styles.title}>{t('addGameTitle')}</Text>
         <TextInput
           style={styles.input}
-          placeholder={t('gameNamePlaceholder')} // Use translation
+          placeholder={t('gameNamePlaceholder')} 
           value={newGame}
           onChangeText={setNewGame}
         />
         <TextInput
           style={styles.input}
-          placeholder={t('gameDescriptionPlaceholder')} // Use translation
+          placeholder={t('gameDescriptionPlaceholder')} 
           value={description}
           onChangeText={setDescription}
           multiline
@@ -117,6 +118,7 @@ export default function AddGameScreen({ navigation }) {
               onSelect: handlePlatformSelection,
             })
           }
+          color={colors.buttonDefault}
         />
         <View style={styles.imageContainer}>
           {imageUri ? (
@@ -125,11 +127,11 @@ export default function AddGameScreen({ navigation }) {
             <Text style={styles.imagePlaceholder}>{t('noImageSelected')}</Text>
           )}
           <View style={styles.buttonRow}>
-                      <Button title={t('pickImage')} onPress={pickImage} />
-                      <Button title={t('takePhoto')} onPress={takePhoto} />
+                      <Button title={t('pickImage')} onPress={pickImage} color={colors.buttonDefault} />
+                      <Button title={t('takePhoto')} onPress={takePhoto} color={colors.buttonDefault} />
           </View>
         </View>
-        <Button title={t('saveGame')} onPress={addGame} />
+        <Button title={t('saveGame')} onPress={addGame} color={colors.buttonConfirm} />
       </View>
     </TouchableWithoutFeedback>
   );
@@ -139,21 +141,21 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     flex: 1,
-    backgroundColor: '#1e1e1e',
+    backgroundColor: colors.background,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#fff',
+    color: colors.text,
     marginBottom: 10,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.text,
     padding: 8,
     marginBottom: 10,
-    backgroundColor: '#222',
-    color: '#fff',
+    backgroundColor: colors.secondaryBackground,
+    color: colors.text,
   },
   imageContainer: {
     marginBottom: 10,
@@ -165,7 +167,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   imagePlaceholder: {
-    color: '#aaa',
+    color: colors.secondaryText,
     marginBottom: 10,
   },
   buttonRow: {

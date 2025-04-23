@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { ref, push } from 'firebase/database';
 import { db } from './firebase';
 import { useTranslation } from 'react-i18next';
+import colors from './Style';
 
 export default function AddPlatformScreen({ navigation }) {
   const [platformName, setPlatformName] = useState('');
@@ -33,7 +34,7 @@ export default function AddPlatformScreen({ navigation }) {
         value={platformName}
         onChangeText={setPlatformName}
       />
-      <Button title={t('savePlatform')} onPress={addPlatform} />
+      <Button title={t('savePlatform')} onPress={addPlatform} color={colors.buttonConfirm}/>
     </View>
   );
 }
@@ -42,20 +43,20 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     flex: 1,
-    backgroundColor: '#1e1e1e',
+    backgroundColor: colors.background,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#fff',
+    color: colors.text,
     marginBottom: 10,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.text,
     padding: 8,
     marginBottom: 10,
-    backgroundColor: '#222',
-    color: '#fff',
+    backgroundColor: colors.secondaryBackground,
+    color: colors.text,
   },
 });

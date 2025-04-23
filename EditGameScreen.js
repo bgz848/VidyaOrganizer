@@ -4,6 +4,7 @@ import { ref, update } from 'firebase/database';
 import * as ImagePicker from 'expo-image-picker';
 import { db } from './firebase';
 import { useTranslation } from 'react-i18next';
+import colors from './Style';
 
 export default function EditGameScreen({ route, navigation }) {
   const { game } = route.params;
@@ -101,6 +102,7 @@ export default function EditGameScreen({ route, navigation }) {
               onSelect: handlePlatformSelection,
             })
           }
+          color={colors.buttonDefault}
         />
         <View style={styles.imageContainer}>
           {imageUri ? (
@@ -109,11 +111,11 @@ export default function EditGameScreen({ route, navigation }) {
             <Text style={styles.imagePlaceholder}>{t('noImageSelected')}</Text>
           )}
           <View style={styles.buttonRow}>
-            <Button title={t('pickImage')} onPress={pickImage} />
-            <Button title={t('takePhoto')} onPress={takePhoto} />
+            <Button title={t('pickImage')} onPress={pickImage} color={colors.buttonDefault} />
+            <Button title={t('takePhoto')} onPress={takePhoto} color={colors.buttonDefault} />
           </View>
         </View>
-        <Button title={t('saveChanges')} onPress={saveChanges} />
+        <Button title={t('saveChanges')} onPress={saveChanges} color={colors.buttonConfirm} />
       </View>
     </TouchableWithoutFeedback>
   );
@@ -123,12 +125,12 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     flex: 1,
-    backgroundColor: '#1e1e1e',
+    backgroundColor: colors.background,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#fff',
+    color: colors.text,
     marginBottom: 10,
   },
   input: {
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
     padding: 8,
     marginBottom: 10,
     backgroundColor: '#222',
-    color: '#fff',
+    color: colors.text,
   },
   imageContainer: {
     marginBottom: 10,
@@ -149,7 +151,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   imagePlaceholder: {
-    color: '#aaa',
+    color: colors.secondaryText,
     marginBottom: 10,
   },
   buttonRow: {
