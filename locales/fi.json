@@ -29,5 +29,8 @@
     "Finnish": "Suomi",
     "English": "Englanti",
     "confirm": "Vahvista",
-    "language": "Kieli"
+    "language": "Kieli",
+    "home": "Koti",
+    "platformSelection": "Alustan Valinta",
+    "settings": "Asetukset"
 }

@@ -29,5 +29,8 @@
     "Finnish": "Finnish",
     "English": "English",
     "confirm": "Confirm",
-    "language": "Language"
+    "language": "Language",
+    "home": "Home",
+    "platformSelection": "Platform Selection",
+    "settings": "Settings"
 }

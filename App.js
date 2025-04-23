@@ -144,15 +144,41 @@ function HomeScreen({ navigation }) {
 }
 
 export default function App() {
+  const { t } = useTranslation(); 
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="AddGame" component={AddGameScreen} />
-        <Stack.Screen name="EditGame" component={EditGameScreen} />
-        <Stack.Screen name="AddPlatform" component={AddPlatformScreen} />
-        <Stack.Screen name="PlatformSelection" component={PlatformSelectionScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
+        <Stack.Screen 
+          name="Home" 
+          component={HomeScreen} 
+          options={{ title: t('home') }} 
+        />
+        <Stack.Screen 
+          name="AddGame" 
+          component={AddGameScreen} 
+          options={{ title: t('addGame') }} 
+        />
+        <Stack.Screen 
+          name="EditGame" 
+          component={EditGameScreen} 
+          options={{ title: t('editGame') }} 
+        />
+        <Stack.Screen 
+          name="AddPlatform" 
+          component={AddPlatformScreen} 
+          options={{ title: t('addPlatform') }} 
+        />
+        <Stack.Screen 
+          name="PlatformSelection" 
+          component={PlatformSelectionScreen} 
+          options={{ title: t('platformSelection') }} 
+        />
+        <Stack.Screen 
+          name="Settings" 
+          component={SettingsScreen} 
+          options={{ title: t('settings') }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
