@@ -50,8 +50,8 @@ export default function AddGameScreen({ navigation }) {
     }
 
     const result = await ImagePicker.launchCameraAsync({
-      allowsEditing: true,
       quality: 1,
+      allowsEditing: false, 
     });
 
     if (!result.canceled) {
@@ -122,13 +122,17 @@ export default function AddGameScreen({ navigation }) {
         />
         <View style={styles.imageContainer}>
           {imageUri ? (
-            <Image source={{ uri: imageUri }} style={styles.image} />
+            <Image 
+              source={{ uri: imageUri }} 
+              style={styles.image} 
+              resizeMode="contain" 
+            />
           ) : (
             <Text style={styles.imagePlaceholder}>{t('noImageSelected')}</Text>
           )}
           <View style={styles.buttonRow}>
-                      <Button title={t('pickImage')} onPress={pickImage} color={colors.buttonDefault} />
-                      <Button title={t('takePhoto')} onPress={takePhoto} color={colors.buttonDefault} />
+            <Button title={t('pickImage')} onPress={pickImage} color={colors.buttonDefault} />
+            <Button title={t('takePhoto')} onPress={takePhoto} color={colors.buttonDefault} />
           </View>
         </View>
         <Button title={t('saveGame')} onPress={addGame} color={colors.buttonConfirm} />

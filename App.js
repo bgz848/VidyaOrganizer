@@ -120,7 +120,11 @@ function HomeScreen({ navigation }) {
                 >
                   <View style={styles.gameInfoRow}> 
                     {item.imageUrl && (
-                      <Image source={{ uri: item.imageUrl }} style={styles.thumb} />
+                      <Image 
+                        source={{ uri: item.imageUrl }} 
+                        style={styles.thumb} 
+                        resizeMode="contain" 
+                      />
                     )}
                     <View style={styles.gameDetails}> 
                       <Text style={styles.gameText}>{item.name}</Text>
@@ -218,11 +222,10 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   thumb: {
-    width: 60,
-    height: 60,
-    borderRadius: 4,
-    marginTop: 10, 
-    alignSelf: 'top', 
+    width: 75, 
+    height: 75, 
+    marginTop: 10,
+    alignSelf: 'top',
   },
   description: {
     color: colors.secondaryText,

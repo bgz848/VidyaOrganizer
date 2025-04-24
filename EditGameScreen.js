@@ -27,7 +27,7 @@ export default function EditGameScreen({ route, navigation }) {
 
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
+      allowsEditing: false,
       quality: 1,
     });
 
@@ -44,7 +44,7 @@ export default function EditGameScreen({ route, navigation }) {
     }
 
     const result = await ImagePicker.launchCameraAsync({
-      allowsEditing: true,
+      allowsEditing: false,
       quality: 1,
     });
 
@@ -106,7 +106,11 @@ export default function EditGameScreen({ route, navigation }) {
         />
         <View style={styles.imageContainer}>
           {imageUri ? (
-            <Image source={{ uri: imageUri }} style={styles.image} />
+            <Image 
+              source={{ uri: imageUri }} 
+              style={styles.image} 
+              resizeMode="contain" 
+            />
           ) : (
             <Text style={styles.imagePlaceholder}>{t('noImageSelected')}</Text>
           )}
