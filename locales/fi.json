@@ -23,8 +23,6 @@
     "selectPlatform": "Valitse alusta.",
     "failedToSave": "Muutosten tallennus epäonnistui. Yritä uudelleen.",
     "platforms": "Alustat",
-    "switchLanguageToEnglish": "Vaihda Englanniksi",
-    "switchLanguageToFinnish": "Vaihda Suomeksi",
     "searchGames": "Etsi Nimellä",
     "Finnish": "Suomi",
     "English": "Englanti",
@@ -32,5 +30,6 @@
     "language": "Kieli",
     "home": "Koti",
     "platformSelection": "Alustan Valinta",
-    "settings": "Asetukset"
+    "settings": "Asetukset",
+    "platformManagement": "Hallitse Alustoja"
 }

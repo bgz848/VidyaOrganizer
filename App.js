@@ -94,7 +94,7 @@ function HomeScreen({ navigation }) {
             color={colors.buttonDefault} 
           />
           <Button 
-            title={t('addPlatform')} 
+            title={t('platformManagement')} 
             onPress={() => navigation.navigate('AddPlatform')} 
             color={colors.buttonDefault} 
           />

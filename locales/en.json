@@ -32,5 +32,6 @@
     "language": "Language",
     "home": "Home",
     "platformSelection": "Platform Selection",
-    "settings": "Settings"
+    "settings": "Settings",
+    "platformManagement": "Manage Platforms"
 }
