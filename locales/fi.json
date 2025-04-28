@@ -31,5 +31,15 @@
     "home": "Koti",
     "platformSelection": "Alustan Valinta",
     "settings": "Asetukset",
-    "platformManagement": "Hallitse Alustoja"
+    "platformManagement": "Hallitse Alustoja",
+    "addLocationTitle": "Lisää uusi sijainti",
+    "locationNamePlaceholder": "Sijainnin nimi",
+    "getCurrentLocation": "Hae nykyinen sijainti",
+    "currentLocation": "Nykyinen sijainti",
+    "saveLocation": "Tallenna sijainti",
+    "enterLocationName": "Anna sijainnin nimi.",
+    "locationPermissionRequired": "Sijainnin käyttöoikeus vaaditaan nykyisen sijainnin hakemiseen.",
+    "permissionDenied": "Käyttöoikeus evätty",
+    "addLocation": "Lisää sijainti",
+    "purchaseLocation": "Osto paikka"
 }

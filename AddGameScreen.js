@@ -7,6 +7,7 @@ import { db } from './firebase';
 import { useTranslation } from 'react-i18next';
 import colors from './Style';
 
+
 export default function AddGameScreen({ navigation }) {
   const { t } = useTranslation();
   const [newGame, setNewGame] = useState('');
@@ -14,6 +15,8 @@ export default function AddGameScreen({ navigation }) {
   const [platforms, setPlatforms] = useState([]);
   const [selectedPlatform, setSelectedPlatform] = useState('');
   const [imageUri, setImageUri] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
 
   useEffect(() => {
     const platformsRef = ref(db, 'platforms');
@@ -41,6 +44,11 @@ export default function AddGameScreen({ navigation }) {
       setImageUri(result.assets[0].uri);
     }
   };
+
+  const handleLocationSelection = (location) => {
+    setSelectedLocation(location);
+  };
+  
 
   const takePhoto = async () => {
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
@@ -75,6 +83,7 @@ export default function AddGameScreen({ navigation }) {
         description: description.trim(),
         platform: selectedPlatform,
         imageUrl: imageUri || '',
+        location: selectedLocation || null,
       };
 
       await push(ref(db, 'games'), gameData);
@@ -116,6 +125,19 @@ export default function AddGameScreen({ navigation }) {
           onPress={() =>
             navigation.navigate('PlatformSelection', {
               onSelect: handlePlatformSelection,
+            })
+          }
+          color={colors.buttonDefault}
+        />
+        <Button
+          title={
+            selectedLocation
+              ? `${t('addLocation')}: ${selectedLocation.name}`
+              : t('addLocation')
+          }
+          onPress={() =>
+            navigation.navigate('LocationSelection', {
+              onSelect: handleLocationSelection,
             })
           }
           color={colors.buttonDefault}

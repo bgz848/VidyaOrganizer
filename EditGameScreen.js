@@ -13,6 +13,8 @@ export default function EditGameScreen({ route, navigation }) {
   const [description, setDescription] = useState(game.description || '');
   const [selectedPlatform, setSelectedPlatform] = useState(game.platform || '');
   const [imageUri, setImageUri] = useState(game.imageUrl || '');
+  const [selectedLocation, setSelectedLocation] = useState(game.location || null);
+
 
   const handlePlatformSelection = (platform) => {
     setSelectedPlatform(platform);
@@ -35,6 +37,11 @@ export default function EditGameScreen({ route, navigation }) {
       setImageUri(result.assets[0].uri);
     }
   };
+
+  const handleLocationSelection = (location) => {
+    setSelectedLocation(location);
+  };
+  
 
   const takePhoto = async () => {
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
@@ -70,6 +77,7 @@ export default function EditGameScreen({ route, navigation }) {
         description: description.trim(),
         platform: selectedPlatform,
         imageUrl: imageUri || '',
+        location: selectedLocation || null,
       });
       navigation.goBack();
     } catch (error) {
@@ -100,6 +108,19 @@ export default function EditGameScreen({ route, navigation }) {
           onPress={() =>
             navigation.navigate('PlatformSelection', {
               onSelect: handlePlatformSelection,
+            })
+          }
+          color={colors.buttonDefault}
+        />
+        <Button
+          title={
+            selectedLocation
+              ? `${t('addLocation')}: ${selectedLocation.name}`
+              : t('addLocation')
+          }
+          onPress={() =>
+            navigation.navigate('LocationSelection', {
+              onSelect: handleLocationSelection,
             })
           }
           color={colors.buttonDefault}

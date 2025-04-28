@@ -23,8 +23,6 @@
     "selectPlatform": "Please select a platform.",
     "failedToSave": "Failed to save changes. Please try again.",
     "platforms": "Platforms",
-    "switchLanguageToEnglish": "Switch to English",
-    "switchLanguageToFinnish": "Switch to Finnish",
     "searchGames": "Search by Name",
     "Finnish": "Finnish",
     "English": "English",
@@ -33,5 +31,15 @@
     "home": "Home",
     "platformSelection": "Platform Selection",
     "settings": "Settings",
-    "platformManagement": "Manage Platforms"
+    "platformManagement": "Manage Platforms",
+    "addLocationTitle": "Add a New Location",
+    "locationNamePlaceholder": "Location name",
+    "getCurrentLocation": "Get Current Location",
+    "currentLocation": "Current Location",
+    "saveLocation": "Save Location",
+    "enterLocationName": "Please enter a location name.",
+    "locationPermissionRequired": "Location permission is required to get the current location.",
+    "permissionDenied": "Permission Denied",
+    "addLocation": "Add Location",
+    "purchaseLocation": "Purchase Location"
 }

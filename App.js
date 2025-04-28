@@ -8,6 +8,8 @@ import AddGameScreen from './AddGameScreen';
 import EditGameScreen from './EditGameScreen'; 
 import AddPlatformScreen from './AddPlatformScreen'; 
 import PlatformSelectionScreen from './PlatformSelectionScreen'; 
+import AddLocationScreen from './AddLocationScreen';
+import LocationSelectionScreen from './LocationSelectionScreen';
 import { db } from './firebase';
 import './i18n'; 
 import { useTranslation } from 'react-i18next';
@@ -98,6 +100,11 @@ function HomeScreen({ navigation }) {
             onPress={() => navigation.navigate('AddPlatform')} 
             color={colors.buttonDefault} 
           />
+          <Button 
+            title={t('addLocationTitle')} 
+            onPress={() => navigation.navigate('AddLocation')} 
+            color={colors.buttonDefault} 
+          />
         </View>
         <TextInput
           style={styles.searchBar}
@@ -130,6 +137,11 @@ function HomeScreen({ navigation }) {
                       <Text style={styles.gameText}>{item.name}</Text>
                       {item.platform && (
                         <Text style={styles.platform}>{t('platforms')}: {item.platform}</Text>
+                      )}
+                      {item.location?.name && (
+                        <Text style={styles.platform}>
+                          {t('purchaseLocation')}: {item.location.name}
+                        </Text>
                       )}
                     </View>
                   </View>
@@ -182,6 +194,16 @@ export default function App() {
           name="Settings" 
           component={SettingsScreen} 
           options={{ title: t('settings') }}
+        />
+        <Stack.Screen 
+          name="AddLocation" 
+          component={AddLocationScreen} 
+          options={{ title: t('addLocationTitle') }} 
+        />
+        <Stack.Screen 
+          name="LocationSelection" 
+          component={LocationSelectionScreen} 
+          options={{ title: t('addLocationTitle') }} 
         />
       </Stack.Navigator>
     </NavigationContainer>
