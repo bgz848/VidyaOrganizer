@@ -91,11 +91,6 @@ function HomeScreen({ navigation }) {
         </View>
         <View style={styles.buttonRow}>
           <Button 
-            title={t('addGame')} 
-            onPress={() => navigation.navigate('AddGame')} 
-            color={colors.buttonDefault} 
-          />
-          <Button 
             title={t('platformManagement')} 
             onPress={() => navigation.navigate('AddPlatform')} 
             color={colors.buttonDefault} 
@@ -153,6 +148,13 @@ function HomeScreen({ navigation }) {
             </Swipeable>
           )}
         />
+        <View style={styles.buttonAddGame}>
+        <Button 
+          title={t('addGame')} 
+          onPress={() => navigation.navigate('AddGame')} 
+          color={colors.buttonDefault} 
+        />
+      </View>
       </View>
     </TouchableWithoutFeedback>
     
@@ -270,6 +272,10 @@ const styles = StyleSheet.create({
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  buttonAddGame: {
+    alignItems: 'center', 
     marginBottom: 10,
   },
   platform: {
