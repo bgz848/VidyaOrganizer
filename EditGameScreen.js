@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     padding: 8,
     marginBottom: 10,
-    backgroundColor: '#222',
+    backgroundColor: colors.secondaryBackground,
     color: colors.text,
   },
   imageContainer: {
