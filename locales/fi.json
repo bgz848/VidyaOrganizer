@@ -41,5 +41,7 @@
     "locationPermissionRequired": "Sijainnin käyttöoikeus vaaditaan nykyisen sijainnin hakemiseen.",
     "permissionDenied": "Käyttöoikeus evätty",
     "addLocation": "Lisää sijainti",
-    "purchaseLocation": "Osto paikka"
+    "purchaseLocation": "Osto paikka",
+    "manageLocations": "Hallitse sijainteja",
+    "deletePlatform": "Poista alusta"
 }

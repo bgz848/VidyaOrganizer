@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Swipeable } from 'react-native-gesture-handler'; 
 import AddGameScreen from './AddGameScreen'; 
 import EditGameScreen from './EditGameScreen'; 
-import AddPlatformScreen from './AddPlatformScreen'; 
+import AddPlatformScreen from './ManagePlatformScreen'; 
 import PlatformSelectionScreen from './PlatformSelectionScreen'; 
 import AddLocationScreen from './AddLocationScreen';
 import LocationSelectionScreen from './LocationSelectionScreen';
@@ -96,7 +96,7 @@ function HomeScreen({ navigation }) {
             color={colors.buttonDefault} 
           />
           <Button 
-            title={t('addLocationTitle')} 
+            title={t('manageLocations')} 
             onPress={() => navigation.navigate('AddLocation')} 
             color={colors.buttonDefault} 
           />
@@ -185,7 +185,7 @@ export default function App() {
         <Stack.Screen 
           name="AddPlatform" 
           component={AddPlatformScreen} 
-          options={{ title: t('addPlatform') }} 
+          options={{ title: t('platformManagement') }} 
         />
         <Stack.Screen 
           name="PlatformSelection" 

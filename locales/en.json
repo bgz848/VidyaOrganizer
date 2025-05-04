@@ -41,5 +41,7 @@
     "locationPermissionRequired": "Location permission is required to get the current location.",
     "permissionDenied": "Permission Denied",
     "addLocation": "Add Location",
-    "purchaseLocation": "Purchase Location"
+    "purchaseLocation": "Purchase Location",
+    "manageLocations": "Manage Locations",
+    "deletePlatform": "Delete Platform"
 }

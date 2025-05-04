@@ -71,11 +71,6 @@ export default function AddLocationScreen({ navigation }) {
           value={locationName}
           onChangeText={setLocationName}
         />
-        <Button
-          title={t('getCurrentLocation')}
-          onPress={getCurrentLocation}
-          color={colors.buttonDefault}
-        />
         <MapView
           style={styles.map}
           region={mapRegion}
